@@ -10,8 +10,13 @@
 */
 Entity *player_spawn(Vector2D position);
 void menuthink(Entity *self);
+void backgroundthink(Entity *self);
 void selectthink(Entity *self);
 ShapeRect hitbox();
 void change(Uint16 type);
-
+void battlestart();
+void battleend();
+Uint16 B2();
+Uint16 B3();
+Uint16 B4();
 #endif

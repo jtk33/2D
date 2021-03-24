@@ -12,6 +12,7 @@
 #include "entity.h"
 #include "player.h"
 #include "level.h"
+#include "battle.h"
 
 
 int main(int argc, char * argv[])
@@ -76,26 +77,31 @@ int main(int argc, char * argv[])
 	ent[5] = entity_new();
 	ent[5]->sprite = gf2d_sprite_load_all("images/troll.png", 64, 64, 16);
 	ent[5]->position = vector2d(600, 50);
+	ent[5]->hitbox = shape_rect_from_vector4d(vector4d(600, 50, 64, 64));
 	ent[5]->think = enemythink;
 	ent[5]->type = 1;
 	ent[6] = entity_new();
 	ent[6]->sprite = gf2d_sprite_load_all("images/troll.png", 64, 64, 16);
 	ent[6]->position = vector2d(700, 50);
+	ent[6]->hitbox = shape_rect_from_vector4d(vector4d(700, 50, 64, 64));
 	ent[6]->think = enemythink;
 	ent[6]->type = 2;
 	ent[7] = entity_new();
 	ent[7]->sprite = gf2d_sprite_load_all("images/troll.png", 64, 64, 16);
 	ent[7]->position = vector2d(800, 50);
+	ent[7]->hitbox = shape_rect_from_vector4d(vector4d(800, 50, 64, 64));
 	ent[7]->think = enemythink;
 	ent[7]->type = 3;
 	ent[8] = entity_new();
 	ent[8]->sprite = gf2d_sprite_load_all("images/troll.png", 64, 64, 16);
 	ent[8]->position = vector2d(900, 50);
+	ent[8]->hitbox = shape_rect_from_vector4d(vector4d(900, 50, 64, 64));
 	ent[8]->think = enemythink;
 	ent[8]->type = 4;
 	ent[9] = entity_new();
 	ent[9]->sprite = gf2d_sprite_load_all("images/troll.png", 64, 64, 16);
 	ent[9]->position = vector2d(1000, 50);
+	ent[9]->hitbox = shape_rect_from_vector4d(vector4d(1000, 50, 64, 64));
 	ent[9]->think = enemythink;
 	ent[9]->type = 5;
 
@@ -105,13 +111,28 @@ int main(int argc, char * argv[])
 
 
     //font = font_load("fonts/8bitoperator.ttf",16);
-
-
 	ent[0] = entity_new();
 	ent[0]->think = menuthink;
 	ent[1] = entity_new();
-	//ent[1]->sprite = gf2d_sprite_load_all("images/highlight.png", 311, 166, 16);
 	ent[1]->think = selectthink;
+
+	ent[10] = entity_new();
+	ent[10]->think = backgroundthink;
+	ent[11] = entity_new();
+	ent[11]->think = battlethink;
+	ent[12] = entity_new();
+	ent[12]->think = ba1;
+	ent[13] = entity_new();
+	ent[13]->think = ba2;
+	ent[14] = entity_new();
+	ent[14]->think = ba3;
+	ent[15] = entity_new();
+	ent[15]->think = ba4;
+	ent[16] = entity_new();
+	ent[16]->think = bselect;
+
+
+	
 
     /*main game loop*/
     while(!done)

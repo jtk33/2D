@@ -3,6 +3,7 @@
 #include "player.h"
 #include "camera.h"
 #include "shape.h"
+#include "simple_json.h"
 
 void player_update(Entity *self);
 void player_think(Entity *self);
@@ -14,6 +15,10 @@ Uint16 b2, b3, b4;
 int spos;
 float wait;
 ShapeRect hb;
+float x, y;
+SJson *json, *place, *jx, *jy;
+
+SJString build;
 const Uint8 *keys;
 
 Entity *player_spawn(Vector2D position)
@@ -120,6 +125,32 @@ void player_think(Entity *self)
 		if (keys[SDL_SCANCODE_D])
 		{
 			self->position.x += speed;
+		}
+		if (keys[SDL_SCANCODE_O] && wait <= 0)
+		{
+			wait = 2;
+			json = sj_object_new();
+			place = sj_object_new();
+			jx = sj_new_float(self->position.x);
+			jy = sj_new_float(self->position.y);
+			sj_object_insert(place, "x", jx);
+			sj_object_insert(place, "y", jy);
+			sj_object_insert(json, "place", place);
+			sj_echo(json);
+			sj_save(json, "json/place.json");
+		}
+		if (keys[SDL_SCANCODE_P] && wait <= 0)
+		{
+			wait = 2;
+			json = sj_load("json/place.json");
+			place = sj_object_get_value(json, "place");
+			jx = sj_object_get_value(place, "x");
+			jy = sj_object_get_value(place, "y");
+			sj_get_float_value(jx, &x);
+			sj_get_float_value(jy, &y);
+			self->position.x = x;
+			self->position.y = y;
+
 		}
 		if (wait <= 0)
 		{

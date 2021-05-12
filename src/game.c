@@ -26,8 +26,6 @@ int main(int argc, char * argv[])
     
     int mx,my;
     float mf = 0;
-    Sprite *mouse;
-    Vector4D mouseColor = {100,255,255,200};
 	Entity *ent[50] = { 0 };
     /*program initializtion*/
     init_logger("gf2d.log");
@@ -50,7 +48,6 @@ int main(int argc, char * argv[])
     SDL_ShowCursor(SDL_DISABLE);
     
     /*demo setup*/
-    mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16);
     level = level_load("levels/exampleLevel.json");
     player_spawn(vector2d(100,100));
 
@@ -156,15 +153,7 @@ int main(int argc, char * argv[])
 
             entity_manager_draw_entities();
             //UI elements last
-            gf2d_sprite_draw(
-                mouse,
-                vector2d(mx,my),
-                NULL,
-                NULL,
-                NULL,
-                NULL,
-                &mouseColor,
-                (int)mf);
+          
         //gfc_line_sprintf(text,"Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
         //font_render(font,text,vector2d(32,32),gfc_color8(255,0,0,255));
 

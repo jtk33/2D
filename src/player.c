@@ -191,10 +191,12 @@ void backgroundthink(Entity *self)
 	if (battle == 1)
 	{
 		self->sprite = gf2d_sprite_load_all("images/battleback.png", 1200, 720, 16);
+		self->position = vector2d(camera_get_position().x, camera_get_position().y);
 	}
 	if (battle == 0)
 	{
 		gf2d_sprite_delete(self->sprite);
+		self->position = vector2d(-2000, -2000);
 	}
 
 }

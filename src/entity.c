@@ -195,6 +195,7 @@ void enemythink(Entity *self)
 		if (keys[SDL_SCANCODE_SPACE])
 		{
 			battle_initiate(self->type);
+			entity_free(self);
 		}
 	}
 

@@ -9,7 +9,7 @@
 void player_update(Entity *self);
 void player_think(Entity *self);
 
-Uint16 overworld, menu, battle;
+Uint16 overworld, menu, battle, title;
 Uint16 points, form;
 Uint16 slash, whistle, mm, bash, dance, fireball, smite, lullaby, storm;
 Uint16 b2, b3, b4;
@@ -27,7 +27,8 @@ Mix_Music *music, *fart;
 Entity *player_spawn(Vector2D position)
 {
 	Entity *ent;
-	overworld = 1;
+	title = 1;
+	overworld = 0;
 	menu = 0;
 	spos = 8;
 	wait = 0;
@@ -198,6 +199,23 @@ ShapeRect hitbox()
 void change(Uint16 type)
 {
 	form = type;
+}
+void titlethink(Entity *self)
+{
+	if (title == 1)
+	{
+		if (keys[SDL_SCANCODE_SPACE])
+		{
+			title = 0;
+			overworld = 1;
+		}
+		self->position = vector2d(camera_get_position().x, camera_get_position().y);
+		self->sprite = gf2d_sprite_load_all("images/mainmenu.png", 1200, 720, 16);
+	}
+	else
+	{
+		self->position = vector2d(-2000, -2000);
+	}
 }
 void menuthink(Entity *self)
 {

@@ -9,6 +9,7 @@
 * @return NULL on error, or a pointer to a new player entity
 */
 Entity *player_spawn(Vector2D position);
+void titlethink(Entity *self);
 void menuthink(Entity *self);
 void backgroundthink(Entity *self);
 void selectthink(Entity *self);

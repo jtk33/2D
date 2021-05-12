@@ -236,6 +236,8 @@ int main(int argc, char * argv[])
 	ent[45]->think = ba4;
 	ent[46] = entity_new();
 	ent[46]->think = bselect;
+	ent[47] = entity_new();
+	ent[47]->think = titlethink;
 
 
 	

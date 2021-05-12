@@ -12,7 +12,7 @@ ESC to shut off the game.
 Interacting with the stray items will equip them.
 Interacting with the trolls will initiate a battle.
 
-Each piece of gear enhances the related skill tree's abilities in some way. (TBD)
+Each piece of gear is currently purely aesthetic, but they do make the happy guy look very nice.
 
 
             ☆

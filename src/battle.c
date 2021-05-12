@@ -1,4 +1,5 @@
 #include "simple_logger.h"
+#include "gf2d_audio.h"
 
 #include "battle.h"
 #include "camera.h"
@@ -15,6 +16,8 @@ const char *second = "nothing", *third = "nothing", *fourth = "nothing";
 float wait, wait2;
 int eturn;
 int experience = 0;
+int r1;
+Mix_Music *bmusic;
 
 void battle_initiate(Uint16 enemy)
 {
@@ -29,6 +32,8 @@ void battle_initiate(Uint16 enemy)
 	stun = 0;
 	sleeping = 0;
 	flaming = 0;
+	r1 = 1;
+	bmusic = Mix_LoadMUS("music/battlemusic.mp3");
 	switch (type)
 	{
 	case 1:
@@ -142,6 +147,11 @@ void battlethink(Entity *self)
 			}
 			if (wait2 <= 0)
 			{
+				if (r1 == 1)
+				{
+					r1 = 0;
+					Mix_PlayMusic(bmusic, -1);
+				}
 				enemyturn();
 			}
 			if (wait2 <= 0)

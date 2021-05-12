@@ -24,6 +24,8 @@ typedef struct Entity_s
 	void       *data;
 	ShapeRect	hitbox;
 	Uint16		type;	//What type of its kind is it?
+	Uint16		level;	//The level of origin for this entity.
+	Vector2D	realpos; //Position in its level, not in other levels.
 }Entity;
 
 /**

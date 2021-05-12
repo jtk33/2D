@@ -1,4 +1,5 @@
 #include "simple_logger.h"
+#include "gf2d_audio.h"
 
 #include "player.h"
 #include "camera.h"
@@ -13,6 +14,7 @@ Uint16 points, form;
 Uint16 slash, whistle, mm, bash, dance, fireball, smite, lullaby, storm;
 Uint16 b2, b3, b4;
 int spos;
+Uint16 lvl;
 float wait;
 ShapeRect hb;
 float x, y;
@@ -20,6 +22,7 @@ SJson *json, *place, *jx, *jy;
 
 SJString build;
 const Uint8 *keys;
+Mix_Music *music, *fart;
 
 Entity *player_spawn(Vector2D position)
 {
@@ -42,6 +45,10 @@ Entity *player_spawn(Vector2D position)
 	b2 = 0;
 	b3 = 0;
 	b4 = 0;
+	lvl = 1;
+	music = Mix_LoadMUS("music/music.mp3");
+	fart = Mix_LoadMUS("music/fart.mp3");
+	Mix_PlayMusic(music, -1);
 	ent = entity_new();
 	if (!ent)
 	{
@@ -163,7 +170,26 @@ void player_think(Entity *self)
 		}
 	}
 	//slog("%f", wait);
-
+	if (self->position.y < -100 && lvl == 1)
+	{
+		self->position.y = 1000;
+		lvl = 2;
+	}
+	else if (self->position.y > 1100 && lvl == 2)
+	{
+		self->position.y = 0;
+		lvl = 1;
+	}
+	else if (self->position.x < -100 && lvl == 2)
+	{
+		self->position.x = 2000;
+		lvl = 3;
+	}
+	else if (self->position.x > 2100 && lvl == 3)
+	{
+		self->position.x = 0;
+		lvl = 2;
+	}
 }
 ShapeRect hitbox()
 {
@@ -175,14 +201,15 @@ void change(Uint16 type)
 }
 void menuthink(Entity *self)
 {
-	self->position = vector2d(camera_get_position().x, camera_get_position().y);
+	
 	if (menu == 1)
 	{
+		self->position = vector2d(camera_get_position().x, camera_get_position().y);
 		self->sprite = gf2d_sprite_load_all("images/skill tree.png", 1200, 720, 16);
-		if (keys[SDL_SCANCODE_E])
-		{
-			self->sprite = gf2d_sprite_load_all("images/blank.png", 1, 1, 16);
-		}
+	}
+	else
+	{
+		self->position = vector2d(-2000, -2000);
 	}
 }
 void backgroundthink(Entity *self)
@@ -232,7 +259,6 @@ void selectthink(Entity *self)
 				overworld = 1;
 				menu = 0;
 				wait = 2;
-				gf2d_sprite_delete(self->sprite);
 			}
 			if (keys[SDL_SCANCODE_SPACE])
 			{
@@ -399,6 +425,10 @@ void selectthink(Entity *self)
 				break;
 		}
 	}
+	else
+	{
+		self->position = vector2d(-2000, -2000);
+	}
 }
 
 void battlestart()
@@ -406,11 +436,13 @@ void battlestart()
 	overworld = 0;
 	menu = 0;
 	battle = 1;
+	Mix_PlayMusic(fart, 1);
 }
 void battleend()
 {
 	overworld = 1;
 	battle = 0;
+	Mix_PlayMusic(music, -1);
 }
 Uint16 B2()
 {
@@ -424,5 +456,8 @@ Uint16 B4()
 {
 	return b4;
 }
-
+Uint16 currentLevel()
+{
+	return lvl;
+}
 /**/

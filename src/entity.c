@@ -182,11 +182,18 @@ void itemthink(Entity *self)
 	{
 		if (keys[SDL_SCANCODE_SPACE])
 		{
-			entity_free(self);
+			self->position = vector2d(-2000, -2000);
 			change(self->type);
 		}
 	}
-
+	if (currentLevel() == self->level)
+	{
+		self->position = self->realpos;
+	}
+	else
+	{
+		self->position = vector2d(-2000, -2000);
+	}
 }
 void enemythink(Entity *self)
 {
@@ -195,10 +202,18 @@ void enemythink(Entity *self)
 		if (keys[SDL_SCANCODE_SPACE])
 		{
 			battle_initiate(self->type);
+			self->position = vector2d(-2000, -2000);
 			entity_free(self);
 		}
 	}
-
+	if (currentLevel() == self->level)
+	{
+		self->position = self->realpos;
+	}
+	else
+	{
+		self->position = vector2d(-2000, -2000);
+	}
 }
 
 /*eol@eof*/

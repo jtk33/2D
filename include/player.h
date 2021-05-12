@@ -19,4 +19,5 @@ void battleend();
 Uint16 B2();
 Uint16 B3();
 Uint16 B4();
+Uint16 currentLevel();
 #endif
